@@ -443,7 +443,7 @@ export default function MyPatients() {
                                     <div className="qr-label">PATIENT INFO SCAN</div>
                                     <div className="qr-code-box">
                                         <QRCode
-                                            value={`${window.location.origin}/verify-patient?data=${btoa(JSON.stringify({
+                                            value={`https://medicore-connect.onrender.com/verify-patient?data=${btoa(JSON.stringify({
                                                 id: selectedPatientIdCard._id,
                                                 name: selectedPatientIdCard.name,
                                                 age: selectedPatientIdCard.age,
