@@ -1,0 +1,84 @@
+/* Patient.css */
+.lab-patients-container {
+    padding: 2rem;
+}
+
+.patient-search-bar {
+    max-width: 600px;
+    margin-bottom: 2rem;
+    position: relative;
+}
+
+.patient-search-bar input {
+    width: 100%;
+    padding: 1rem 1rem 1rem 3rem;
+    border: 1px solid var(--slate-200);
+    border-radius: 12px;
+    font-size: 1rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.patient-list-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1.5rem;
+}
+
+.lab-patient-card {
+    background: white;
+    border-radius: 12px;
+    padding: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    border: 1px solid var(--slate-100);
+    transition: all 0.2s ease;
+}
+
+.lab-patient-card:hover {
+    border-color: var(--primary-300);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+}
+
+.patient-avatar {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: var(--primary-100);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    color: var(--primary-600);
+    font-weight: 600;
+}
+
+.patient-details h4 {
+    margin: 0;
+    color: var(--slate-800);
+    font-size: 1.1rem;
+}
+
+.patient-details span {
+    display: block;
+    color: var(--slate-500);
+    font-size: 0.9rem;
+    margin-top: 0.25rem;
+}
+
+.btn-view-history {
+    margin-left: auto;
+    padding: 0.5rem 1rem;
+    border: 1px solid var(--primary-200);
+    border-radius: 6px;
+    color: var(--primary-600);
+    background: white;
+    cursor: pointer;
+    font-size: 0.875rem;
+}
+
+.btn-view-history:hover {
+    background: var(--primary-50);
+}

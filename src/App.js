@@ -9,6 +9,13 @@ import AdminDashboard from "./pages/dashboards/AdminDashboard";
 import ReceptionistDashboard from "./pages/dashboards/ReceptionistDashboard";
 import DoctorDashboard from "./pages/dashboards/DoctorDashboard";
 import ScannerDashboard from "./pages/dashboards/ScannerDashboard";
+import LabTechnicianDashboard from "./pages/dashboards/LabTechnicianDashboard";
+import LabReportPage from "./pages/lab/Report";
+import Tests from "./pages/lab/Tests";
+import Patient from "./pages/lab/Patient";
+import CreateLabReport from "./pages/lab/CreateLabReport";
+import ViewLabReport from "./pages/lab/ViewLabReport";
+import LabTests from "./pages/lab/LabTests";
 import ScanReports from "./pages/Scanner/ScanReports";
 import CreateScanReport from "./pages/Scanner/CreateScanReport";
 // Biller pages
@@ -128,6 +135,22 @@ export default function App() {
         <Route path="/scanner/scan-report/view/:reportId" element={<ProtectedRoute role="scanner"><ViewScanReport /></ProtectedRoute>} />
         <Route path="/scanner/create-report" element={<ProtectedRoute role="scanner"><CreateScanReport /></ProtectedRoute>} />
 
+        {/* LAB DASHBOARD */}
+        <Route
+          path="/lab"
+          element={
+            <ProtectedRoute role="lab">
+              <LabTechnicianDashboard />
+            </ProtectedRoute>
+          }
+        />
+        <Route path="/lab/dashboard" element={<ProtectedRoute role="lab"><LabTechnicianDashboard /></ProtectedRoute>} />
+        <Route path="/lab/reports" element={<ProtectedRoute allowedRoles={["lab"]}><LabReportPage /></ProtectedRoute>} />
+        <Route path="/lab/Tests" element={<ProtectedRoute allowedRoles={["lab", "admin", "doctor"]}><LabTests /></ProtectedRoute>} />
+        <Route path="/lab/Patient" element={<ProtectedRoute role="lab"><Patient /></ProtectedRoute>} />
+        <Route path="/lab/create-report" element={<ProtectedRoute allowedRoles={["lab"]}><CreateLabReport /></ProtectedRoute>} />
+        <Route path="/lab/report/view/:reportId" element={<ProtectedRoute role="lab"><ViewLabReport /></ProtectedRoute>} />
+
         {/* Catch All */}
 
         {/* BILLER PAGES */}
@@ -243,6 +266,17 @@ export default function App() {
             <ProtectedRoute role={["doctor", "admin"]}>
               <DoctorLayout>
                 <ViewScanReport />
+              </DoctorLayout>
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/doctor/lab-report/view/:reportId"
+          element={
+            <ProtectedRoute role={["doctor", "admin"]}>
+              <DoctorLayout>
+                <ViewLabReport />
               </DoctorLayout>
             </ProtectedRoute>
           }
@@ -418,6 +452,15 @@ export default function App() {
           element={
             <ProtectedRoute role="admin">
               <ViewScanReport />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/admin/lab-report/view/:reportId"
+          element={
+            <ProtectedRoute role="admin">
+              <ViewLabReport />
             </ProtectedRoute>
           }
         />

@@ -1,263 +1,335 @@
 /* ================= LAYOUT CONTAINER ================= */
 :root {
-  --navbar-height: 60px;
-  /* Reduced from 70px */
-  --sidebar-width: 220px;
-  /* Reduced from 260px */
+    --navbar-height: 60px;
+    --sidebar-width: 220px;
+    --bottom-nav-height: 70px;
 }
 
 /* ================= TOP NAVBAR ================= */
 .app-navbar {
-  height: var(--navbar-height);
-  background: white;
-  border-bottom: 3px solid var(--primary-500);
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0 1.5rem;
-  /* Reduced horizontal padding */
-  position: fixed;
-  width: 100%;
-  top: 0;
-  z-index: 50;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    height: var(--navbar-height);
+    background: white;
+    border-bottom: 3px solid var(--primary-500);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 1rem;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    left: 0;
+    z-index: 50;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
 }
 
 .app-navbar .left {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
 }
 
 .app-navbar h3 {
-  font-size: 1.1rem;
-  /* Smaller for mobile */
-  font-weight: 700;
-  color: var(--primary-800);
-  letter-spacing: -0.01em;
-  text-transform: uppercase;
-  display: flex;
-  align-items: center;
-  gap: 8px;
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--primary-800);
+    letter-spacing: -0.01em;
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin: 0;
 }
 
 .app-navbar h3::before {
-  content: "✚";
-  background: var(--primary-500);
-  color: white;
-  width: 28px;
-  /* Slightly smaller logo */
-  height: 28px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 4px;
-  font-size: 0.9rem;
+    content: "✚";
+    background: var(--primary-500);
+    color: white;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 4px;
+    font-size: 0.8rem;
 }
 
+/* Hide Hamburger Menu on Mobile (Since we have Bottom Bar) */
 .menu-btn {
-  font-size: 1.5rem;
-  background: none;
-  border: none;
-  color: var(--slate-700);
-  cursor: pointer;
-  padding: 0.5rem;
+    display: none;
 }
 
-/* ================= RIGHT ACTION AREA ================= */
 .app-navbar .right {
-  display: flex;
-  align-items: center;
-  gap: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
 }
 
 .role-badge {
-  background: var(--primary-50);
-  color: var(--primary-800);
-  padding: 0.4rem 1rem;
-  border-radius: 4px;
-  font-size: 0.8rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  border: 1px solid var(--primary-100);
+    display: none;
 }
 
 .logout-btn {
-  background: transparent;
-  color: var(--slate-600);
-  border: 1px solid var(--slate-300);
-  padding: 0.5rem 1.2rem;
-  border-radius: 4px;
-  font-size: 0.85rem;
-  font-weight: 600;
-  transition: all 0.2s;
-  text-transform: uppercase;
+    background: transparent;
+    color: var(--slate-600);
+    border: 1px solid var(--slate-300);
+    padding: 0.35rem 0.85rem;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
 }
 
-.logout-btn:hover {
-  background: var(--danger);
-  color: white;
-  border-color: var(--danger);
-}
-
-/* ================= SIDEBAR ================= */
+/* ================= MOBILE BOTTOM NAVIGATION (DOWNBAR) ================= */
 .app-sidebar {
-  position: fixed;
-  top: var(--navbar-height);
-  left: 0;
-  width: min(var(--sidebar-width), 85vw);
-  /* Responsive width */
-  height: calc(100vh - var(--navbar-height));
-  background: #ffffff;
-  border-right: 1px solid var(--slate-200);
-  padding: 1.5rem 0;
-  display: flex;
-  flex-direction: column;
-  transform: translateX(-100%);
-  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  z-index: 40;
-  box-shadow: 2px 0 10px rgba(0, 0, 0, 0.03);
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    /* Full Mobile Display View */
+    height: var(--bottom-nav-height);
+    background: #ffffff;
+    border-top: 1px solid var(--slate-200);
+    border-right: none;
+    padding: 0;
+    display: flex;
+    flex-direction: row;
+    /* Horizontal */
+    justify-content: center;
+    align-items: center;
+    z-index: 100;
+    box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.05);
+    transform: none;
+    /* Always visible */
+}
+
+/* Clean up unnecessary elements for mobile nav */
+.app-sidebar h4 {
+    display: none;
 }
 
 .app-sidebar.open {
-  transform: translateX(0);
-  box-shadow: var(--shadow-lg);
+    transform: none;
+    box-shadow: none;
 }
 
-.app-sidebar h4 {
-  margin-bottom: 1rem;
-  padding: 0 1.5rem;
-  color: var(--slate-500);
-  font-size: 0.75rem;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-  font-weight: 700;
+.overlay {
+    display: none;
 }
 
 .app-sidebar ul {
-  display: flex;
-  flex-direction: column;
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: 100%;
+    justify-content: space-around;
+    margin: 0;
+    padding: 0;
+    list-style: none;
 }
 
 .app-sidebar li {
-  padding: 1rem 1.5rem;
-  cursor: pointer;
-  color: var(--slate-700);
-  font-weight: 500;
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  transition: all 0.2s;
-  border-left: 4px solid transparent;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    /* Icon Top, Text Bottom */
+    align-items: center;
+    justify-content: center;
+    padding: 0.25rem;
+    gap: 4px;
+    color: var(--slate-400);
+    font-weight: 600;
+    transition: all 0.2s;
+    border-left: none;
+    border-top: 3px solid transparent;
+    cursor: pointer;
+    height: 100%;
 }
 
 .app-sidebar li:hover {
-  background: var(--primary-50);
-  color: var(--primary-800);
-  border-left-color: var(--primary-300);
+    background: var(--primary-50);
+    color: var(--primary-700);
 }
 
 .app-sidebar li.active {
-  background: var(--primary-50);
-  color: var(--primary-800);
-  border-left-color: var(--primary-500);
-  font-weight: 700;
+    background: transparent;
+    color: var(--primary-700);
+    border-top-color: var(--primary-500);
+    border-left-color: transparent;
 }
 
-/*Icon style*/
-.app-sidebar li span {
-  font-size: 1.2rem;
+.app-sidebar li span:first-child {
+    font-size: 1.4rem;
+    display: block;
+    line-height: 1;
 }
 
-/* ================= OVERLAY ================= */
-.overlay {
-  position: fixed;
-  top: var(--navbar-height);
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.5);
-  backdrop-filter: blur(2px);
-  z-index: 30;
-  animation: fadeIn 0.2s ease-out;
-}
-
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-
-  to {
-    opacity: 1;
-  }
+.menu-label {
+    font-size: 0.65rem;
+    display: block;
 }
 
 /* ================= GLOBAL LAYOUT ================= */
 body {
-  padding-top: var(--navbar-height) !important;
+    padding-top: var(--navbar-height) !important;
+    padding-bottom: var(--bottom-nav-height) !important;
+    /* Mobile padding for downbar */
+    padding-left: 0 !important;
+    /* Full width on mobile */
 }
 
-/* ================= DESKTOP STYLES ================= */
+/* Ensure all page containers are full width on mobile */
+.admin-dashboard,
+.doctor-dashboard-container,
+.mypatients-page-wrapper,
+.patient-details-container,
+.report-container,
+.reports-page,
+.reports-page-v2,
+.prescription-container,
+.profile-container,
+.availability-container,
+.add-patient-container,
+.patient-list-container {
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0 !important;
+    padding: 1rem;
+    /* Internal spacing */
+    box-sizing: border-box;
+}
+
+/* ================= DESKTOP STYLES (Min-Width: 1024px) ================= */
 @media (min-width: 1024px) {
 
-  /* Fixed Persistent Layout */
-  body {
-    padding-left: var(--sidebar-width) !important;
-    padding-top: var(--navbar-height) !important;
-    transition: none;
-  }
+    /* Body Padding for Sidebar */
+    body {
+        padding-left: var(--sidebar-width) !important;
+        padding-bottom: 0 !important;
+        transition: none;
+    }
 
-  /* Compact Column Layout: Keep contents concise and left-aligned */
-  .admin-dashboard,
-  .doctor-dashboard-container,
-  .mypatients-page-wrapper,
-  .patient-details-container,
-  .report-container,
-  .reports-page,
-  .reports-page-v2,
-  .prescription-container,
-  .profile-container,
-  .availability-container,
-  .add-patient-container,
-  .patient-list-container {
-    max-width: 1200px !important;
-    margin-left: 0 !important;
-    margin-right: auto !important;
-    width: 100% !important;
-  }
+    .app-navbar {
+        padding: 0 2rem;
+    }
 
-  .app-navbar {
-    width: 100%;
-    left: 0;
-    z-index: 100;
-  }
+    .app-navbar h3 {
+        font-size: 1.1rem;
+    }
 
-  .menu-btn {
-    display: none;
-  }
+    .app-navbar h3::before {
+        width: 28px;
+        height: 28px;
+        font-size: 0.9rem;
+    }
 
-  .app-sidebar {
-    width: var(--sidebar-width);
-    transform: translateX(0) !important;
-    top: var(--navbar-height);
-    height: calc(100vh - var(--navbar-height));
-    z-index: 90;
-    overflow-y: auto;
-    border-right: 1px solid var(--slate-200);
-    box-shadow: none;
-  }
+    .role-badge {
+        display: inline-block;
+        background: var(--primary-50);
+        color: var(--primary-800);
+        padding: 0.4rem 1rem;
+        border-radius: 4px;
+        font-size: 0.8rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        border: 1px solid var(--primary-100);
+    }
 
-  /* Labels and contents always visible */
-  .app-sidebar h4,
-  .app-sidebar li {
-    opacity: 1;
-    white-space: nowrap;
-  }
+    .logout-btn {
+        padding: 0.5rem 1.2rem;
+        font-size: 0.85rem;
+    }
 
-  /* Remove Unused Zen Mode Assets */
-  .nav-trigger-top,
-  .nav-trigger-left {
-    display: none;
-  }
+    /* SIDEBAR RESET (Vertical Left) */
+    .app-sidebar {
+        top: var(--navbar-height);
+        bottom: auto;
+        left: 0;
+        width: var(--sidebar-width);
+        height: calc(100vh - var(--navbar-height));
+        background: #ffffff;
+        border-right: 1px solid var(--slate-200);
+        border-top: none;
+        padding: 0 0 1.5rem 0;
+        display: flex;
+        flex-direction: column;
+        z-index: 40;
+        box-shadow: 2px 0 10px rgba(0, 0, 0, 0.03);
+        align-items: stretch;
+        justify-content: flex-start;
+        /* Fix vertical centering */
+    }
+
+    .app-sidebar h4 {
+        display: block;
+        margin-top: 0.5rem;
+        /* Minimal margin */
+        margin-bottom: 0.5rem;
+        padding: 0 1.5rem;
+        color: var(--slate-500);
+        font-size: 0.75rem;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        font-weight: 700;
+    }
+
+    .app-sidebar ul {
+        flex-direction: column;
+        justify-content: flex-start;
+        height: auto;
+    }
+
+    .app-sidebar li {
+        flex: none;
+        height: auto;
+        padding: 1rem 1.5rem;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: flex-start;
+        gap: 1rem;
+        border-top: none;
+        border-left: 4px solid transparent;
+    }
+
+    .app-sidebar li:hover {
+        background: var(--primary-50);
+        color: var(--primary-800);
+        border-left-color: var(--primary-300);
+    }
+
+    .app-sidebar li.active {
+        background: var(--primary-50);
+        color: var(--primary-800);
+        border-left-color: var(--primary-500);
+        border-top-color: transparent;
+        font-weight: 700;
+    }
+
+    .app-sidebar li span:first-child {
+        font-size: 1.2rem;
+    }
+
+    .menu-label {
+        font-size: 1rem;
+    }
+
+    /* Compact Column Layout Override - Centered/Limited Width on Desktop */
+    .admin-dashboard,
+    .doctor-dashboard-container,
+    .mypatients-page-wrapper,
+    .patient-details-container,
+    .report-container,
+    .reports-page,
+    .reports-page-v2,
+    .prescription-container,
+    .profile-container,
+    .availability-container,
+    .add-patient-container,
+    .patient-list-container {
+        max-width: 1200px !important;
+        margin-left: 0 !important;
+        margin-right: auto !important;
+        width: 100% !important;
+    }
 }

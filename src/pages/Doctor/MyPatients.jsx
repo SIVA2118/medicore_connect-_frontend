@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import QRCode from "react-qr-code";
+import { LAB_TEST_MASTER } from "../../constants/labTestMaster";
 import "../../styles/Doctor/MyPatients.css";
 
 export default function MyPatients() {
@@ -27,6 +28,12 @@ export default function MyPatients() {
     const [scanners, setScanners] = useState([]);
     const [scanData, setScanData] = useState({ type: "X-Ray", scanName: "", description: "", assignedTo: "" });
 
+    // Lab Request Modal State
+    const [showLabModal, setShowLabModal] = useState(false);
+    const [selectedPatientForLab, setSelectedPatientForLab] = useState(null);
+    const [labs, setLabs] = useState([]);
+    const [labData, setLabData] = useState({ testType: "Hematology", testName: "", description: "", assignedTo: "" });
+
     const fetchScanners = async () => {
         try {
             const token = localStorage.getItem("token");
@@ -41,6 +48,20 @@ export default function MyPatients() {
         }
     };
 
+    const fetchLabs = async () => {
+        try {
+            const token = localStorage.getItem("token");
+            const res = await axios.get("https://medicore-connect.onrender.com/api/lab/all-labs", {
+                headers: { Authorization: `Bearer ${token}` }
+            });
+            if (res.data.success) {
+                setLabs(res.data.labs);
+            }
+        } catch (err) {
+            console.error("Failed to fetch labs", err);
+        }
+    };
+
     const openIdCard = (patient) => {
         setSelectedPatientIdCard(patient);
         setShowIdCard(true);
@@ -51,6 +72,13 @@ export default function MyPatients() {
         setScanData({ type: "X-Ray", scanName: "", description: "", assignedTo: "" });
         if (scanners.length === 0) fetchScanners();
         setShowScanModal(true);
+    };
+
+    const openLabModal = (patient) => {
+        setSelectedPatientForLab(patient);
+        setLabData({ testType: "Hematology", testName: "", description: "", assignedTo: "" });
+        if (labs.length === 0) fetchLabs();
+        setShowLabModal(true);
     };
 
     const handleScanSubmit = async () => {
@@ -72,6 +100,28 @@ export default function MyPatients() {
         } catch (err) {
             console.error("Failed to request scan", err);
             alert("Failed to create scan request");
+        }
+    };
+
+    const handleLabSubmit = async () => {
+        if (!labData.testName) return alert("Please enter a test name");
+        try {
+            const token = localStorage.getItem("token");
+            await axios.post("https://medicore-connect.onrender.com/api/lab/report", {
+                patient: selectedPatientForLab._id,
+                testType: labData.testType,
+                testName: labData.testName,
+                description: labData.description,
+                assignedTo: labData.assignedTo,
+                testDate: new Date()
+            }, {
+                headers: { Authorization: `Bearer ${token}` }
+            });
+            alert("Lab test assigned successfully!");
+            setShowLabModal(false);
+        } catch (err) {
+            console.error("Failed to assign lab test", err);
+            alert("Failed to create lab request");
         }
     };
 
@@ -201,6 +251,15 @@ export default function MyPatients() {
                     title="Assign Scanner"
                 >
                     📷 Scan
+                </button>
+
+                <button
+                    className="action-btn"
+                    onClick={(e) => { e.stopPropagation(); openLabModal(p); }}
+                    title="Assign Lab Test"
+                    style={{ backgroundColor: '#7c3aed', color: 'white' }}
+                >
+                    🧪 Lab
                 </button>
 
                 <button
@@ -371,6 +430,81 @@ export default function MyPatients() {
                 )
             }
 
+            {/* Lab Request Modal */}
+            {
+                showLabModal && (
+                    <div className="modal-overlay">
+                        <div className="modal-content">
+                            <h3>Assign Lab Test</h3>
+                            <p>Assign test for <strong>{selectedPatientForLab?.name}</strong></p>
+
+                            <div className="form-group" style={{ marginTop: '1rem' }}>
+                                <label style={{ display: 'block', marginBottom: '0.5rem' }}>Test Type</label>
+                                <select
+                                    value={labData.testType}
+                                    onChange={(e) => setLabData({
+                                        ...labData,
+                                        testType: e.target.value,
+                                        testName: LAB_TEST_MASTER[e.target.value]?.[0] || "" // Reset test name to first option
+                                    })}
+                                    className="modal-select"
+                                    style={{ marginTop: 0 }}
+                                >
+                                    {Object.keys(LAB_TEST_MASTER).map(key => (
+                                        <option key={key} value={key}>{key.replace(/_/g, ' ')}</option>
+                                    ))}
+                                </select>
+                            </div>
+
+                            <div className="form-group">
+                                <label style={{ display: 'block', marginBottom: '0.5rem' }}>Assign Lab (Optional)</label>
+                                <select
+                                    value={labData.assignedTo}
+                                    onChange={(e) => setLabData({ ...labData, assignedTo: e.target.value })}
+                                    className="modal-select"
+                                    style={{ marginTop: 0 }}
+                                >
+                                    <option value="">-- Select Lab --</option>
+                                    {labs.map(l => (
+                                        <option key={l._id} value={l._id}>{l.name} ({l.email})</option>
+                                    ))}
+                                </select>
+                            </div>
+
+                            <div className="form-group">
+                                <label style={{ display: 'block', marginBottom: '0.5rem' }}>Test Name</label>
+                                <select
+                                    value={labData.testName}
+                                    onChange={(e) => setLabData({ ...labData, testName: e.target.value })}
+                                    className="modal-select"
+                                    style={{ marginTop: 0 }}
+                                    required
+                                >
+                                    <option value="">-- Select Test --</option>
+                                    {LAB_TEST_MASTER[labData.testType]?.map(test => (
+                                        <option key={test} value={test}>{test}</option>
+                                    ))}
+                                </select>
+                            </div>
+                            <div className="form-group">
+                                <label style={{ display: 'block', marginBottom: '0.5rem' }}>Instructions / Notes</label>
+                                <textarea
+                                    placeholder="Clinical notes..."
+                                    value={labData.description}
+                                    onChange={(e) => setLabData({ ...labData, description: e.target.value })}
+                                    style={{ width: '100%', padding: '0.8rem', border: '1px solid #ddd', borderRadius: '8px', minHeight: '80px' }}
+                                ></textarea>
+                            </div>
+
+                            <div className="modal-actions" style={{ marginTop: '1.5rem' }}>
+                                <button className="btn-cancel" onClick={() => setShowLabModal(false)}>Cancel</button>
+                                <button className="btn-submit" onClick={handleLabSubmit}>Assign Test</button>
+                            </div>
+                        </div>
+                    </div>
+                )
+            }
+
             {/* Patient ID Card Modal (Vaccination Style) */}
             {
                 showIdCard && selectedPatientIdCard && (
@@ -531,4 +665,3 @@ export default function MyPatients() {
         </div >
     );
 }
-

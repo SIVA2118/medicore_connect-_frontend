@@ -6,12 +6,14 @@ import {
   loginReceptionist,
   loginDoctor,
   loginScanner,
-  loginBiller
+  loginBiller,
+  loginLab
 } from "../api/auth";
 
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(""); // For error messages
   const navigate = useNavigate();
@@ -78,6 +80,15 @@ export default function Login() {
         return;
       } catch { }
 
+      // 6️⃣ Lab (Added)
+      try {
+        const res = await loginLab({ email, password });
+        localStorage.setItem("token", res.data.token);
+        localStorage.setItem("role", "lab");
+        navigate("/lab");
+        return;
+      } catch { }
+
       setError("Invalid credentials. Please check your email and password.");
     } catch (err) {
       setError("An unexpected error occurred. Please try again.");
@@ -128,18 +139,50 @@ export default function Login() {
           disabled={loading}
         />
 
-        <input
-          type="password"
-          placeholder="Password"
-          onChange={(e) => setPassword(e.target.value)}
-          required
-          disabled={loading}
-        />
+        <div style={{ position: "relative" }}>
+          <input
+            type={showPassword ? "text" : "password"}
+            placeholder="Password"
+            onChange={(e) => setPassword(e.target.value)}
+            required
+            disabled={loading}
+            style={{ paddingRight: "40px" }}
+          />
+          <span
+            onClick={() => setShowPassword(!showPassword)}
+            className="icon-transition"
+            style={{
+              position: "absolute",
+              right: "15px",
+              top: "50%",
+              transform: "translateY(-50%)",
+              cursor: "pointer",
+              color: "#6b7280",
+              userSelect: "none",
+              display: "flex",
+              alignItems: "center"
+            }}
+          >
+            {showPassword ? (
+              <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0"></path>
+                <circle cx="12" cy="12" r="3"></circle>
+              </svg>
+            ) : (
+              <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M10.733 5.076a10.744 10.744 0 0 1 11.205 6.575 1 1 0 0 1 0 .696 10.747 10.747 0 0 1-1.444 2.49"></path>
+                <path d="M14.084 14.158a3 3 0 0 1-4.242-4.242"></path>
+                <path d="M17.479 17.499a10.75 10.75 0 0 1-15.417-5.151 1 1 0 0 1 0-.696 10.75 10.75 0 0 1 4.446-5.143"></path>
+                <path d="m2 2 20 20"></path>
+              </svg>
+            )}
+          </span>
+        </div>
 
         <button disabled={loading}>
           {loading ? "Signing in..." : "Login"}
         </button>
-      </form>
-    </div>
+      </form >
+    </div >
   );
 }

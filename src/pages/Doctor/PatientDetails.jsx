@@ -158,22 +158,56 @@ export default function PatientDetails() {
                                 ) : <p className="empty-text" style={{ color: 'var(--slate-400)', fontStyle: 'italic' }}>No prescriptions found.</p>}
                             </div>
 
-                            {/* SCANS */}
-                            <div className="history-section" style={{ gridColumn: '1 / -1', marginTop: '1rem' }}>
-                                <h3 style={{ color: 'var(--teal-800)', borderBottom: '2px solid var(--teal-100)', paddingBottom: '0.5rem', marginBottom: '1rem' }}>Scan & Lab History</h3>
-                                {patient.scanReports?.length > 0 ? (
+                            {/* LABS */}
+                            <div className="history-section" style={{ marginTop: '1rem' }}>
+                                <h3 style={{ color: 'var(--blue-800)', borderBottom: '2px solid var(--blue-100)', paddingBottom: '0.5rem', marginBottom: '1rem' }}>Lab History</h3>
+                                {patient.labReports?.length > 0 ? (
                                     <div className="history-list">
-                                        {patient.scanReports.map(scan => (
-                                            <div key={scan._id} className="history-card-item scan-item" onClick={() => navigate(role === "admin" ? `/admin/scan-report/view/${scan._id}` : `/doctor/scan-report/view/${scan._id}`)}>
+                                        {patient.labReports.map(item => (
+                                            <div
+                                                key={item._id}
+                                                className="history-card-item scan-item"
+                                                onClick={() => navigate(role === "admin" ? `/admin/lab-report/view/${item._id}` : `/doctor/lab-report/view/${item._id}`)}
+                                            >
                                                 <div className="item-left">
-                                                    <span className="date-badge" style={{ background: 'var(--teal-50)', color: 'var(--teal-700)' }}>
-                                                        {new Date(scan.createdAt).toLocaleDateString()}
+                                                    <span className="date-badge" style={{ background: 'var(--blue-50)', color: 'var(--blue-700)' }}>
+                                                        {new Date(item.testDate).toLocaleDateString()}
                                                     </span>
                                                     <div className="item-info">
-                                                        <strong>{scan.scanName} ({scan.type})</strong>
+                                                        <strong>{item.testName} ({item.testType})</strong>
                                                         <span className="doc-name">
-                                                            Req by: Dr. {scan.doctor?.name || "N/A"} |
-                                                            Status: <span style={{ fontWeight: 'bold', color: scan.isVerified ? 'green' : 'orange' }}>{scan.isVerified ? 'Verified' : 'Pending'}</span>
+                                                            Req by: Dr. {item.doctor?.name || "N/A"} |
+                                                            Status: <span style={{ fontWeight: 'bold', color: item.isVerified ? 'green' : 'orange' }}>{item.isVerified ? 'Verified' : 'Pending'}</span>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                                <span className="arrow-btn" style={{ color: 'var(--blue-600)' }}>View →</span>
+                                            </div>
+                                        ))}
+                                    </div>
+                                ) : <p className="empty-text" style={{ color: 'var(--slate-400)', fontStyle: 'italic' }}>No lab history found.</p>}
+                            </div>
+
+                            {/* SCANS */}
+                            <div className="history-section" style={{ marginTop: '1rem' }}>
+                                <h3 style={{ color: 'var(--teal-800)', borderBottom: '2px solid var(--teal-100)', paddingBottom: '0.5rem', marginBottom: '1rem' }}>Scan History</h3>
+                                {patient.scanReports?.length > 0 ? (
+                                    <div className="history-list">
+                                        {patient.scanReports.map(item => (
+                                            <div
+                                                key={item._id}
+                                                className="history-card-item scan-item"
+                                                onClick={() => navigate(role === "admin" ? `/admin/scan-report/view/${item._id}` : `/doctor/scan-report/view/${item._id}`)}
+                                            >
+                                                <div className="item-left">
+                                                    <span className="date-badge" style={{ background: 'var(--teal-50)', color: 'var(--teal-700)' }}>
+                                                        {new Date(item.createdAt).toLocaleDateString()}
+                                                    </span>
+                                                    <div className="item-info">
+                                                        <strong>{item.scanName} ({item.type})</strong>
+                                                        <span className="doc-name">
+                                                            Req by: Dr. {item.doctor?.name || "N/A"} |
+                                                            Status: <span style={{ fontWeight: 'bold', color: item.isVerified ? 'green' : 'orange' }}>{item.isVerified ? 'Verified' : 'Pending'}</span>
                                                         </span>
                                                     </div>
                                                 </div>

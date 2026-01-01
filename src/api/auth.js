@@ -19,3 +19,6 @@ export const loginScanner = (data) =>
 
 export const loginBiller = (data) =>
   API.post("/biller/login", data);
+
+export const loginLab = (data) =>
+  API.post("/lab/login", data);
