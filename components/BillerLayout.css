@@ -1,0 +1,20 @@
+.biller-layout {
+    display: flex;
+    min-height: 100vh;
+}
+
+.biller-main-content {
+    flex: 1;
+    margin-left: 0;
+    /* Adjust based on navbar width, assuming same as DoctorNavbar */
+    background-color: var(--slate-50);
+    min-height: 100vh;
+}
+
+@media (max-width: 768px) {
+    .biller-main-content {
+        margin-left: 0;
+        padding-bottom: 60px;
+        /* Bottom nav spacing if mobile */
+    }
+}
