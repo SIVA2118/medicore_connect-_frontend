@@ -15,6 +15,7 @@ export default function ScannerNavbar() {
   const menuItems = [
     { label: "Dashboard", icon: "🏠", path: "/scanner" },
     { label: "Reports", icon: "📄", path: "/scanner/reports" },
+    { label: "Profile", icon: "👤", path: "/scanner/profile" },
   ];
 
   return (

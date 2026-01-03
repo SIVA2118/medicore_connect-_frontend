@@ -17,6 +17,7 @@ export default function LabNavbar() {
         { label: "Reports", icon: "📄", path: "/lab/reports" },
         { label: "Tests", icon: "🧪", path: "/lab/Tests" },
         { label: "Patient", icon: " 👤", path: "/lab/Patient" },
+        { label: "Profile", icon: "👤", path: "/lab/profile" },
     ];
 
     return (

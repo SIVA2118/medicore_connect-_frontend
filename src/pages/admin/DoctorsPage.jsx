@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import AdminNavbar from "../../components/AdminNavbar";
 import "../../styles/admin/DoctorsPage.css";
 
 export default function DoctorsPage() {
+  const navigate = useNavigate();
   const token = localStorage.getItem("token");
   const [doctors, setDoctors] = useState([]);
 
@@ -22,13 +24,17 @@ export default function DoctorsPage() {
     consultationFee: "",
     bio: "",
     profileImage: "",
+    employeeId: "",
+    bloodGroup: "",
+    emergencyContactName: "",
+    emergencyContactPhone: "",
     availability: { days: [], from: "", to: "" },
   });
 
   // ================= FETCH DOCTORS =================
   const fetchDoctors = async () => {
     const res = await axios.get(
-      "https://medicore-connect.onrender.com/api/admin/all-users",
+      "https://medicore-connect.onrender.com/api/admin/all-users?role=doctor",
       { headers: { Authorization: `Bearer ${token}` } }
     );
     setDoctors(res.data.doctors || []);
@@ -120,6 +126,17 @@ export default function DoctorsPage() {
               <input name="registrationNumber" placeholder="Registration Number" onChange={handleChange} />
               <input name="clinicAddress" placeholder="Clinic Address" onChange={handleChange} />
               <input name="consultationFee" type="number" placeholder="Consultation Fee" onChange={handleChange} />
+
+              <h4 style={{ gridColumn: 'span 2', marginTop: '1rem', borderBottom: '1px solid #eee', paddingBottom: '0.5rem' }}>ID Card Details</h4>
+              <input name="employeeId" placeholder="Employee ID (e.g. DOC-01)" onChange={handleChange} />
+              <select name="bloodGroup" onChange={handleChange}>
+                <option value="">Select Blood Group</option>
+                <option>A+</option><option>A-</option><option>B+</option><option>B-</option>
+                <option>O+</option><option>O-</option><option>AB+</option><option>AB-</option>
+              </select>
+              <input name="emergencyContactName" placeholder="Emergency Contact Name" onChange={handleChange} />
+              <input name="emergencyContactPhone" placeholder="Emergency Contact Phone" onChange={handleChange} />
+
               <input name="profileImage" placeholder="Profile Image URL" onChange={handleChange} />
 
               <textarea name="bio" placeholder="Doctor Bio" onChange={handleChange}></textarea>
@@ -151,17 +168,26 @@ export default function DoctorsPage() {
                 <table>
                   <thead>
                     <tr>
+                      <th>Employee ID</th>
                       <th>Name</th>
                       <th>Specialization</th>
+                      <th>Blood Group</th>
                       <th>Phone</th>
                       <th>Fee</th>
                     </tr>
                   </thead>
                   <tbody>
                     {doctors.map((d) => (
-                      <tr key={d._id}>
+                      <tr
+                        key={d._id}
+                        onClick={() => navigate(`/admin/doctor/${d._id}`)}
+                        style={{ cursor: 'pointer' }}
+                        title="Click to view profile"
+                      >
+                        <td>{d.employeeId}</td>
                         <td>{d.name}</td>
                         <td>{d.specialization}</td>
+                        <td>{d.bloodGroup}</td>
                         <td>{d.phone}</td>
                         <td>₹{d.consultationFee}</td>
                       </tr>

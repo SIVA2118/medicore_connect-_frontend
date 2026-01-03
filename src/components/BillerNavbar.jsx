@@ -17,6 +17,7 @@ export default function BillerNavbar() {
     { label: "Create Bill", icon: "💰", path: "/biller/create" },
     { label: "Bill History", icon: "📜", path: "/biller/history" },
     { label: "Patients", icon: "👥", path: "/biller/patients" },
+    { label: "Profile", icon: "👤", path: "/biller/profile" },
   ];
 
   return (

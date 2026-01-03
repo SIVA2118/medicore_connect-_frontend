@@ -20,6 +20,7 @@ export default function AdminNavbar() {
     { label: "Scanners", icon: "🧪", path: "/admin/scanners" },
     { label: "Billers", icon: "💳", path: "/admin/billers" },
     { label: "Reports", icon: "📊", path: "/admin/reports" },
+    { label: "Profile", icon: "👤", path: "/admin/profile" },
   ];
 
   return (

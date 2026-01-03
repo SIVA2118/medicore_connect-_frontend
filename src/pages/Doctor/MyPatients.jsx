@@ -600,7 +600,7 @@ export default function MyPatients() {
                                                     } : { name: `Bill_${selectedPatientIdCard.mrn || "Invoice"}.pdf`, size: "150kb", type: "pdf" }
                                                 ]
                                             }))}`}
-                                            size={128}
+                                            size={160}
                                             style={{ height: "auto", maxWidth: "100%", width: "100%" }}
                                             viewBox={`0 0 256 256`}
                                         />

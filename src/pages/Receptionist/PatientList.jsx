@@ -393,22 +393,14 @@ export default function PatientList() {
                                         <div className="qr-label">PATIENT INFO SCAN</div>
                                         <div className="qr-code-box">
                                             <QRCode
-                                                value={`https://medicore-connect.onrender.com/verify-patient?data=${btoa(JSON.stringify({
+                                                value={`https://medicore-connect-frontend.vercel.app/verify-patient?data=${btoa(JSON.stringify({
                                                     id: selectedPatientIdCard._id,
                                                     name: selectedPatientIdCard.name,
                                                     age: selectedPatientIdCard.age,
                                                     gender: selectedPatientIdCard.gender,
-                                                    bloodGroup: selectedPatientIdCard.bloodGroup,
-                                                    phone: selectedPatientIdCard.phone,
-                                                    email: selectedPatientIdCard.email,
-                                                    address: selectedPatientIdCard.address,
-                                                    guardianName: selectedPatientIdCard.guardianName,
-                                                    guardianPhone: selectedPatientIdCard.guardianPhone,
-                                                    emergencyContact: selectedPatientIdCard.emergencyContact?.phone,
-                                                    history: selectedPatientIdCard.existingConditions,
-                                                    registrationDate: selectedPatientIdCard.registrationDate
+                                                    bloodGroup: selectedPatientIdCard.bloodGroup
                                                 }))}`}
-                                                size={128}
+                                                size={160}
                                                 style={{ height: "auto", maxWidth: "100%", width: "100%" }}
                                                 viewBox={`0 0 256 256`}
                                             />

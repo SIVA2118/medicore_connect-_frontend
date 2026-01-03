@@ -17,6 +17,7 @@ export default function ReceptionistNavbar() {
     { label: "Register Patient", icon: "➕", path: "/receptionist/add-patient" },
     { label: "Patient List", icon: "📋", path: "/receptionist/patients" },
     { label: "Assigned Doctors", icon: "👨‍⚕️", path: "/receptionist/doctors" },
+    { label: "Profile", icon: "👤", path: "/receptionist/profile" },
   ];
 
   return (

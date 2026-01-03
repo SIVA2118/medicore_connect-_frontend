@@ -1,53 +1,52 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
-import "../../styles/Doctor/DoctorProfile.css";
-import DoctorNavbar from "../../components/DoctorNavbar";
-import DoctorIdCard from "./DoctorIdCard";
+import { useParams, useNavigate } from "react-router-dom";
+import "../../styles/Receptionist/ReceptionistProfile.css";
+import AdminNavbar from "../../components/AdminNavbar";
+import ReceptionistIdCard from "../Receptionist/ReceptionistIdCard";
 
-export default function DoctorProfile() {
-    const [doctor, setDoctor] = useState({
+export default function AdminViewReceptionistProfile() {
+    const { receptionistId } = useParams();
+    const navigate = useNavigate();
+    const [receptionist, setReceptionist] = useState({
         name: "",
         email: "",
         phone: "",
-        specialization: "",
-        registrationNumber: "",
+        address: "",
+        degree: "",
+        username: "",
+        password: "",
+        facebook: "",
+        twitter: "",
         profileImage: "",
         bloodGroup: "",
         employeeId: "",
         emergencyContactName: "",
-        emergencyContactPhone: "",
-        experience: 0,
-        qualification: "",
-        clinicAddress: "",
-        consultationFee: 0,
-        age: 0,
-        gender: "Male",
-        bio: "",
-        degree: "",
-        address: ""
+        emergencyContactPhone: ""
     });
     const [loading, setLoading] = useState(true);
     const [isEditing, setIsEditing] = useState(false);
     const [showIdCard, setShowIdCard] = useState(false);
+    const [showPassword, setShowPassword] = useState(false);
 
     useEffect(() => {
         fetchProfile();
-    }, []);
+    }, [receptionistId]);
 
     const fetchProfile = async () => {
         try {
             const token = localStorage.getItem("token");
-            const res = await axios.get("https://medicore-connect.onrender.com/api/doctor/profile", {
+            // Using admin endpoint to fetch user by ID with role receptionist
+            const res = await axios.get(`https://medicore-connect.onrender.com/api/admin/receptionist/${receptionistId}`, {
                 headers: { Authorization: `Bearer ${token}` }
             });
-            // Pre-fill state with fetched data
-            setDoctor(prev => ({
+            setReceptionist(prev => ({
                 ...prev,
                 ...res.data,
-                employeeId: res.data.employeeId || "DOC-01",
             }));
         } catch (err) {
-            console.error("Failed to fetch profile");
+            console.error("Failed to fetch receptionist profile");
+            alert("Error fetching receptionist profile");
         } finally {
             setLoading(false);
         }
@@ -55,7 +54,7 @@ export default function DoctorProfile() {
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
-        setDoctor(prev => ({ ...prev, [name]: value }));
+        setReceptionist(prev => ({ ...prev, [name]: value }));
     };
 
     const handleImageChange = async (e) => {
@@ -73,11 +72,11 @@ export default function DoctorProfile() {
             const base64Image = reader.result;
             try {
                 const token = localStorage.getItem("token");
-                await axios.put("https://medicore-connect.onrender.com/api/doctor/profile",
+                await axios.put(`https://medicore-connect.onrender.com/api/admin/receptionist/${receptionistId}`,
                     { profileImage: base64Image },
                     { headers: { Authorization: `Bearer ${token}` } }
                 );
-                setDoctor(prev => ({ ...prev, profileImage: base64Image }));
+                setReceptionist(prev => ({ ...prev, profileImage: base64Image }));
                 alert("Profile photo updated!");
             } catch (err) {
                 console.error(err);
@@ -90,11 +89,11 @@ export default function DoctorProfile() {
         if (!window.confirm("Remove profile photo?")) return;
         try {
             const token = localStorage.getItem("token");
-            await axios.put("https://medicore-connect.onrender.com/api/doctor/profile",
+            await axios.put(`https://medicore-connect.onrender.com/api/admin/receptionist/${receptionistId}`,
                 { profileImage: "" },
                 { headers: { Authorization: `Bearer ${token}` } }
             );
-            setDoctor(prev => ({ ...prev, profileImage: "" }));
+            setReceptionist(prev => ({ ...prev, profileImage: "" }));
         } catch (err) {
             console.error(err);
         }
@@ -103,15 +102,15 @@ export default function DoctorProfile() {
     const handleSubmit = async () => {
         try {
             const token = localStorage.getItem("token");
-            await axios.put("https://medicore-connect.onrender.com/api/doctor/profile",
-                doctor,
+            await axios.put(`https://medicore-connect.onrender.com/api/admin/receptionist/${receptionistId}`,
+                receptionist,
                 { headers: { Authorization: `Bearer ${token}` } }
             );
             alert("Profile updated successfully!");
             setIsEditing(false);
         } catch (err) {
             console.error(err);
-            alert("Failed to update profile info");
+            alert(err.response?.data?.message || "Failed to update profile info");
         }
     };
 
@@ -119,28 +118,50 @@ export default function DoctorProfile() {
 
     return (
         <>
-            <DoctorNavbar />
-            <div className="doctor-profile-container">
+            <AdminNavbar />
+            <div style={{ padding: '1rem 3rem 0' }}>
+                <button
+                    onClick={() => navigate(-1)}
+                    style={{
+                        width: '40px',
+                        height: '40px',
+                        background: '#1a2c4e',
+                        color: 'white',
+                        border: 'none',
+                        borderRadius: '50%',
+                        cursor: 'pointer',
+                        fontSize: '1.2rem',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        boxShadow: '0 2px 4px rgba(0,0,0,0.2)'
+                    }}
+                    title="Back to List"
+                >
+                    ←
+                </button>
+            </div>
 
+            <div className="receptionist-profile-container" style={{ paddingTop: '1rem' }}>
                 {/* LEFT CARD */}
                 <div className="profile-card-left">
                     <div className="avatar-wrapper">
-                        {doctor.profileImage && (
+                        {receptionist.profileImage && (
                             <button className="delete-avatar-btn" onClick={handleDeletePhoto} title="Remove Photo">
                                 🗑️
                             </button>
                         )}
-                        {doctor.profileImage ? (
-                            <img src={doctor.profileImage} alt="Profile" className="profile-avatar" />
+                        {receptionist.profileImage ? (
+                            <img src={receptionist.profileImage} alt="Profile" className="profile-avatar" />
                         ) : (
                             <div className="avatar-placeholder">
-                                {doctor.name?.charAt(0) || "D"}
+                                {receptionist.name?.charAt(0) || "U"}
                             </div>
                         )}
                     </div>
 
-                    <h2 className="profile-name">{doctor.name}</h2>
-                    <p className="profile-role">{doctor.specialization || "Doctor"}</p>
+                    <h2 className="profile-name">{receptionist.name}</h2>
+                    <p className="profile-role">@{receptionist.username || "username"}</p>
 
                     <label htmlFor="photo-upload" className="upload-btn">
                         Upload New Photo
@@ -159,14 +180,14 @@ export default function DoctorProfile() {
                     </p>
 
                     <div className="member-since">
-                        Member Since: {doctor.createdAt ? new Date(doctor.createdAt).toLocaleDateString(undefined, { day: 'numeric', month: 'long', year: 'numeric' }) : "N/A"}
+                        Member Since: {receptionist.createdAt ? new Date(receptionist.createdAt).toLocaleDateString(undefined, { day: 'numeric', month: 'long', year: 'numeric' }) : "N/A"}
                     </div>
                 </div>
 
                 {/* RIGHT CARD */}
                 <div className="profile-card-right">
                     <div className="edit-header">
-                        <h2>{isEditing ? "Edit Profile" : "Profile Details"}</h2>
+                        <h2>{isEditing ? "Edit Profile (Admin View)" : "Receptionist Profile Details"}</h2>
                     </div>
 
                     {!isEditing ? (
@@ -174,66 +195,46 @@ export default function DoctorProfile() {
                             <div className="view-grid">
                                 <div className="view-group">
                                     <label>Full Name</label>
-                                    <p>{doctor.name}</p>
+                                    <p>{receptionist.name}</p>
                                 </div>
                                 <div className="view-group">
-                                    <label>Specialization</label>
-                                    <p>{doctor.specialization || "Not Set"}</p>
-                                </div>
-                                <div className="view-group">
-                                    <label>Registration Number</label>
-                                    <p>{doctor.registrationNumber || "Not Set"}</p>
-                                </div>
-                                <div className="view-group">
-                                    <label>Qualification</label>
-                                    <p>{doctor.qualification || "Not Set"}</p>
+                                    <label>Username</label>
+                                    <p>{receptionist.username}</p>
                                 </div>
                                 <div className="view-group">
                                     <label>Phone Number</label>
-                                    <p>{doctor.phone || "Not Set"}</p>
-                                </div>
-                                <div className="view-group">
-                                    <label>Email Address</label>
-                                    <p>{doctor.email}</p>
-                                </div>
-                                <div className="view-group">
-                                    <label>Experience (Years)</label>
-                                    <p>{doctor.experience || 0}</p>
-                                </div>
-                                <div className="view-group">
-                                    <label>Consultation Fee</label>
-                                    <p>₹{doctor.consultationFee || 0}</p>
-                                </div>
-                                <div className="view-group">
-                                    <label>Employee ID</label>
-                                    <p>{doctor.employeeId || "Not Set"}</p>
-                                </div>
-                                <div className="view-group">
-                                    <label>Blood Group</label>
-                                    <p>{doctor.bloodGroup || "Not Set"}</p>
-                                </div>
-                                <div className="view-group full-width" style={{ gridColumn: 'span 2' }}>
-                                    <label>Emergency Contact</label>
-                                    <p>
-                                        {doctor.emergencyContactName || "Name Not Set"}
-                                        {doctor.emergencyContactPhone ? ` (${doctor.emergencyContactPhone})` : ""}
-                                    </p>
-                                </div>
-                                <div className="view-group full-width" style={{ gridColumn: 'span 2' }}>
-                                    <label>Clinic Address</label>
-                                    <p>{doctor.clinicAddress || "Not Set"}</p>
+                                    <p>{receptionist.phone || "Not Set"}</p>
                                 </div>
                                 <div className="view-group">
                                     <label>Degree</label>
-                                    <p>{doctor.degree || "Not Set"}</p>
+                                    <p>{receptionist.degree || "Not Set"}</p>
                                 </div>
                                 <div className="view-group">
                                     <label>Address</label>
-                                    <p>{doctor.address || "Not Set"}</p>
+                                    <p>{receptionist.address || "Not Set"}</p>
+                                </div>
+                                <div className="view-group">
+                                    <label>Email Address</label>
+                                    <p>{receptionist.email}</p>
+                                </div>
+                                <div className="view-group">
+                                    <label>Employee ID</label>
+                                    <p>{receptionist.employeeId || "Not Set"}</p>
+                                </div>
+                                <div className="view-group">
+                                    <label>Blood Group</label>
+                                    <p>{receptionist.bloodGroup || "Not Set"}</p>
+                                </div>
+                                <div className="view-group full-width">
+                                    <label>Emergency Contact</label>
+                                    <p>
+                                        {receptionist.emergencyContactName || "Name Not Set"}
+                                        {receptionist.emergencyContactPhone ? ` (${receptionist.emergencyContactPhone})` : ""}
+                                    </p>
                                 </div>
                             </div>
 
-                            <div className="button-group" style={{ display: 'flex', gap: '1rem' }}>
+                            <div className="button-group" style={{ display: 'flex', gap: '1rem', marginTop: '2rem' }}>
                                 <button className="update-btn" onClick={() => setIsEditing(true)}>
                                     Edit Profile
                                 </button>
@@ -254,107 +255,56 @@ export default function DoctorProfile() {
                                     <input
                                         type="text"
                                         name="name"
-                                        value={doctor.name}
+                                        value={receptionist.name}
                                         onChange={handleInputChange}
                                         className="form-input"
                                     />
                                 </div>
                                 <div className="form-group">
-                                    <label className="form-label">Specialization</label>
+                                    <label className="form-label">Username</label>
                                     <input
                                         type="text"
-                                        name="specialization"
-                                        value={doctor.specialization}
+                                        name="username"
+                                        value={receptionist.username}
                                         onChange={handleInputChange}
                                         className="form-input"
                                     />
                                 </div>
-
                                 <div className="form-group">
                                     <label className="form-label">Phone Number</label>
                                     <input
                                         type="text"
                                         name="phone"
-                                        value={doctor.phone}
+                                        value={receptionist.phone}
                                         onChange={handleInputChange}
                                         className="form-input"
                                     />
                                 </div>
-
                                 <div className="form-group">
-                                    <label className="form-label">Qualification</label>
+                                    <label className="form-label">Degree</label>
                                     <input
                                         type="text"
-                                        name="qualification"
-                                        value={doctor.qualification}
+                                        name="degree"
+                                        value={receptionist.degree}
                                         onChange={handleInputChange}
                                         className="form-input"
-                                        placeholder="e.g. MBBS, MD"
                                     />
                                 </div>
-
                                 <div className="form-group">
-                                    <label className="form-label">Registration Number</label>
+                                    <label className="form-label">Address</label>
                                     <input
                                         type="text"
-                                        name="registrationNumber"
-                                        value={doctor.registrationNumber}
+                                        name="address"
+                                        value={receptionist.address}
                                         onChange={handleInputChange}
                                         className="form-input"
-                                    />
-                                </div>
-
-                                <div className="form-group">
-                                    <label className="form-label">Experience (Years)</label>
-                                    <input
-                                        type="number"
-                                        name="experience"
-                                        value={doctor.experience}
-                                        onChange={handleInputChange}
-                                        className="form-input"
-                                    />
-                                </div>
-
-                                <div className="form-group">
-                                    <label className="form-label">Consultation Fee</label>
-                                    <input
-                                        type="number"
-                                        name="consultationFee"
-                                        value={doctor.consultationFee}
-                                        onChange={handleInputChange}
-                                        className="form-input"
-                                    />
-                                </div>
-
-                                <div className="form-group">
-                                    <label className="form-label">Clinic Address</label>
-                                    <input
-                                        type="text"
-                                        name="clinicAddress"
-                                        value={doctor.clinicAddress}
-                                        onChange={handleInputChange}
-                                        className="form-input"
-                                    />
-                                </div>
-
-                                {/* ID Card Fields */}
-                                <h3 className="section-title" style={{ gridColumn: 'span 2', marginTop: '1rem' }}>ID Card Details</h3>
-
-                                <div className="form-group">
-                                    <label className="form-label">Employee ID (Read-only)</label>
-                                    <input
-                                        type="text"
-                                        name="employeeId"
-                                        value={doctor.employeeId}
-                                        readOnly
-                                        className="form-input read-only"
                                     />
                                 </div>
                                 <div className="form-group">
                                     <label className="form-label">Blood Group</label>
                                     <select
                                         name="bloodGroup"
-                                        value={doctor.bloodGroup}
+                                        value={receptionist.bloodGroup}
                                         onChange={handleInputChange}
                                         className="form-input"
                                     >
@@ -374,7 +324,7 @@ export default function DoctorProfile() {
                                     <input
                                         type="text"
                                         name="emergencyContactName"
-                                        value={doctor.emergencyContactName}
+                                        value={receptionist.emergencyContactName}
                                         onChange={handleInputChange}
                                         className="form-input"
                                     />
@@ -384,36 +334,55 @@ export default function DoctorProfile() {
                                     <input
                                         type="text"
                                         name="emergencyContactPhone"
-                                        value={doctor.emergencyContactPhone}
+                                        value={receptionist.emergencyContactPhone}
                                         onChange={handleInputChange}
                                         className="form-input"
                                     />
                                 </div>
                                 <div className="form-group">
-                                    <label className="form-label">Degree</label>
+                                    <label className="form-label">Email Address</label>
                                     <input
-                                        type="text"
-                                        name="degree"
-                                        value={doctor.degree}
+                                        type="email"
+                                        name="email"
+                                        value={receptionist.email}
                                         onChange={handleInputChange}
                                         className="form-input"
-                                        placeholder="e.g. MS, MCH"
                                     />
                                 </div>
                                 <div className="form-group">
-                                    <label className="form-label">Address</label>
+                                    <label className="form-label">New Password (leave blank to keep current)</label>
+                                    <div style={{ position: 'relative' }}>
+                                        <input
+                                            type={showPassword ? "text" : "password"}
+                                            name="password"
+                                            value={receptionist.password || ""}
+                                            onChange={handleInputChange}
+                                            className="form-input"
+                                            placeholder="Leave blank to keep current"
+                                        />
+                                        <button
+                                            type="button"
+                                            onClick={() => setShowPassword(!showPassword)}
+                                            style={{ position: 'absolute', right: '10px', top: '50%', transform: 'translateY(-50%)', background: 'none', border: 'none', cursor: 'pointer' }}
+                                        >
+                                            {showPassword ? "👁️" : "🙈"}
+                                        </button>
+                                    </div>
+                                </div>
+                                <div className="form-group">
+                                    <label className="form-label">Employee ID</label>
                                     <input
                                         type="text"
-                                        name="address"
-                                        value={doctor.address}
+                                        name="employeeId"
+                                        value={receptionist.employeeId}
                                         onChange={handleInputChange}
                                         className="form-input"
                                     />
                                 </div>
                             </div>
 
-                            <div className="button-group" style={{ display: 'flex', gap: '1rem' }}>
-                                <button className="update-btn" onClick={handleSubmit}>Update info</button>
+                            <div className="button-group" style={{ display: 'flex', gap: '1rem', marginTop: '2rem' }}>
+                                <button className="update-btn" onClick={handleSubmit}>Save Changes</button>
                                 <button
                                     className="update-btn"
                                     style={{ background: '#64748b' }}
@@ -428,8 +397,8 @@ export default function DoctorProfile() {
             </div>
 
             {showIdCard && (
-                <DoctorIdCard
-                    doctor={doctor}
+                <ReceptionistIdCard
+                    receptionist={receptionist}
                     onClose={() => setShowIdCard(false)}
                 />
             )}
