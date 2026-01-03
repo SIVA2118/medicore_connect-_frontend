@@ -111,12 +111,20 @@ ul {
 }
 
 /* ================= UTILITIES ================= */
+/* ================= UTILITIES ================= */
 .container {
   width: 100%;
   padding-right: 1.5rem;
   padding-left: 1.5rem;
   margin-right: auto;
   margin-left: auto;
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding-right: 1rem;
+    padding-left: 1rem;
+  }
 }
 
 .card {
@@ -126,6 +134,12 @@ ul {
   /* Subtle shadow */
   border: 1px solid var(--slate-200);
   padding: 2rem;
+}
+
+@media (max-width: 768px) {
+  .card {
+    padding: 1.25rem;
+  }
 }
 
 .btn {
@@ -175,4 +189,15 @@ ul {
 
 .gap-4 {
   gap: 1rem;
+}
+
+/* ================= MOBILE TYPOGRAPHY & OVERRIDES ================= */
+@media (max-width: 640px) {
+  html {
+    font-size: 14px; /* Slightly smaller base font for mobile */
+  }
+
+  h1 { font-size: 1.75rem; }
+  h2 { font-size: 1.5rem; }
+  h3 { font-size: 1.25rem; }
 }

@@ -16,8 +16,10 @@ import Patient from "./pages/lab/Patient";
 import CreateLabReport from "./pages/lab/CreateLabReport";
 import ViewLabReport from "./pages/lab/ViewLabReport";
 import LabTests from "./pages/lab/LabTests";
+import LabProfile from "./pages/lab/LabProfile";
 import ScanReports from "./pages/Scanner/ScanReports";
 import CreateScanReport from "./pages/Scanner/CreateScanReport";
+import ScannerProfile from "./pages/Scanner/ScannerProfile";
 // Biller pages
 import BillerDashboard from "./pages/Biller/BillerDashboard";
 import CreateBill from "./pages/Biller/CreateBill";
@@ -25,6 +27,7 @@ import BillHistory from "./pages/Biller/BillHistory";
 import BillerPatients from "./pages/Biller/BillerPatients";
 import TotalCollection from "./pages/Biller/TotalCollection";
 import TodaysCollection from "./pages/Biller/TodaysCollection";
+import BillerProfile from "./pages/Biller/BillerProfile";
 
 // Admin pages
 import DoctorsPage from "./pages/admin/DoctorsPage";
@@ -32,11 +35,17 @@ import ReceptionistsPage from "./pages/admin/ReceptionistsPage";
 import ScannersPage from "./pages/admin/ScannersPage";
 import BillersPage from "./pages/admin/BillersPage";
 import ReportsPage from "./pages/admin/ReportsPage";
+import AdminProfile from "./pages/admin/AdminProfile";
+import AdminViewBillerProfile from "./pages/admin/AdminViewBillerProfile";
+import AdminViewDoctorProfile from "./pages/admin/AdminViewDoctorProfile";
+import AdminViewReceptionistProfile from "./pages/admin/AdminViewReceptionistProfile";
+import AdminViewScannerProfile from "./pages/admin/AdminViewScannerProfile";
 
 // Receptionist pages
 import AddPatient from "./pages/Receptionist/AddPatient";
 import PatientList from "./pages/Receptionist/PatientList";
 import AssignedDoctors from "./pages/Receptionist/AssignedDoctors";
+import ReceptionistProfile from "./pages/Receptionist/ReceptionistProfile";
 
 // Doctor pages
 import MyPatients from "./pages/Doctor/MyPatients";
@@ -52,6 +61,8 @@ import ViewScanReport from "./pages/Doctor/ViewScanReport";
 import ViewPrescription from "./pages/Doctor/ViewPrescription";
 import DoctorLayout from "./components/DoctorLayout";
 import BillerLayout from "./components/BillerLayout";
+import ScannerLayout from "./components/ScannerLayout";
+import LabLayout from "./components/LabLayout";
 
 export default function App() {
   return (
@@ -73,6 +84,17 @@ export default function App() {
             </ProtectedRoute>
           }
         />
+        {/* ADMIN PAGES */}
+        <Route path="/admin/doctors" element={<ProtectedRoute allowedRoles={['admin']}><DoctorsPage /></ProtectedRoute>} />
+        <Route path="/admin/doctor/:doctorId" element={<ProtectedRoute allowedRoles={['admin']}><AdminViewDoctorProfile /></ProtectedRoute>} />
+        <Route path="/admin/receptionist/:receptionistId" element={<ProtectedRoute allowedRoles={['admin']}><AdminViewReceptionistProfile /></ProtectedRoute>} />
+        <Route path="/admin/scanner/:scannerId" element={<ProtectedRoute allowedRoles={['admin']}><AdminViewScannerProfile /></ProtectedRoute>} />
+        <Route path="/admin/receptionists" element={<ProtectedRoute allowedRoles={['admin']}><ReceptionistsPage /></ProtectedRoute>} />
+        <Route path="/admin/scanners" element={<ProtectedRoute allowedRoles={['admin']}><ScannersPage /></ProtectedRoute>} />
+        <Route path="/admin/biller/:billerId" element={<ProtectedRoute allowedRoles={['admin']}><AdminViewBillerProfile /></ProtectedRoute>} />
+        <Route path="/admin/billers" element={<ProtectedRoute allowedRoles={['admin']}><BillersPage /></ProtectedRoute>} />
+        <Route path="/admin/reports" element={<ProtectedRoute allowedRoles={['admin']}><ReportsPage /></ProtectedRoute>} />
+        <Route path="/admin/profile" element={<ProtectedRoute allowedRoles={['admin']}><AdminProfile /></ProtectedRoute>} />
 
         <Route
           path="/receptionist"
@@ -106,6 +128,15 @@ export default function App() {
           element={
             <ProtectedRoute role="receptionist">
               <AssignedDoctors />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/receptionist/profile"
+          element={
+            <ProtectedRoute role="receptionist">
+              <ReceptionistProfile />
             </ProtectedRoute>
           }
         />
@@ -150,10 +181,30 @@ export default function App() {
         <Route path="/lab/Patient" element={<ProtectedRoute role="lab"><Patient /></ProtectedRoute>} />
         <Route path="/lab/create-report" element={<ProtectedRoute allowedRoles={["lab"]}><CreateLabReport /></ProtectedRoute>} />
         <Route path="/lab/report/view/:reportId" element={<ProtectedRoute role="lab"><ViewLabReport /></ProtectedRoute>} />
+        <Route
+          path="/lab/profile"
+          element={
+            <ProtectedRoute role="lab">
+              <LabLayout>
+                <LabProfile />
+              </LabLayout>
+            </ProtectedRoute>
+          }
+        />
 
         {/* Catch All */}
 
         {/* BILLER PAGES */}
+        <Route
+          path="/scanner/profile"
+          element={
+            <ProtectedRoute role="scanner">
+              <ScannerLayout>
+                <ScannerProfile />
+              </ScannerLayout>
+            </ProtectedRoute>
+          }
+        />
         <Route
           path="/biller"
           element={
@@ -419,6 +470,22 @@ export default function App() {
             </ProtectedRoute>
           }
         />
+        <Route
+          path="/admin/profile"
+          element={
+            <ProtectedRoute role="admin">
+              <AdminProfile />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/admin/doctor/:doctorId"
+          element={
+            <ProtectedRoute role="admin">
+              <AdminViewDoctorProfile />
+            </ProtectedRoute>
+          }
+        />
 
         <Route
           path="/admin/patient/:patientId"
@@ -461,6 +528,16 @@ export default function App() {
           element={
             <ProtectedRoute role="admin">
               <ViewLabReport />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/biller/profile"
+          element={
+            <ProtectedRoute role="biller">
+              <BillerLayout>
+                <BillerProfile />
+              </BillerLayout>
             </ProtectedRoute>
           }
         />

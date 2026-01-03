@@ -80,6 +80,7 @@
 }
 
 /* ================= MOBILE BOTTOM NAVIGATION (DOWNBAR) ================= */
+/* ================= MOBILE BOTTOM NAVIGATION (DOWNBAR) ================= */
 .app-sidebar {
     position: fixed;
     bottom: 0;
@@ -96,7 +97,8 @@
     /* Horizontal */
     justify-content: center;
     align-items: center;
-    z-index: 100;
+    z-index: 1000;
+    /* Ensure high z-index */
     box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.05);
     transform: none;
     /* Always visible */
@@ -143,6 +145,8 @@
     border-top: 3px solid transparent;
     cursor: pointer;
     height: 100%;
+    font-size: 0.8rem;
+    /* Scaled down for mobile */
 }
 
 .app-sidebar li:hover {
@@ -175,6 +179,7 @@ body {
     /* Mobile padding for downbar */
     padding-left: 0 !important;
     /* Full width on mobile */
+    min-height: 100vh;
 }
 
 /* Ensure all page containers are full width on mobile */
@@ -196,6 +201,8 @@ body {
     padding: 1rem;
     /* Internal spacing */
     box-sizing: border-box;
+    overflow-x: hidden;
+    /* Prevent horizontal scroll */
 }
 
 /* ================= DESKTOP STYLES (Min-Width: 1024px) ================= */

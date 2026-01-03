@@ -1,5 +1,5 @@
 /* ================= PROFILE CONTAINER ================= */
-.doctor-profile-container {
+.admin-profile-container {
     padding: 3rem;
     max-width: 1400px;
     margin: 0 auto;
@@ -84,8 +84,8 @@
 }
 
 .upload-btn {
-    background: #0f172a;
-    /* Navy for Doctor */
+    background: #ea580c;
+    /* Orange for Admin */
     color: white;
     font-weight: 600;
     padding: 0.75rem 2rem;
@@ -99,7 +99,7 @@
 }
 
 .upload-btn:hover {
-    background: #1e293b;
+    background: #c2410c;
 }
 
 .image-help-text {
@@ -131,7 +131,6 @@
     top: 2rem;
 }
 
-/* Custom Scrollbar for Right Card */
 .profile-card-right::-webkit-scrollbar {
     width: 6px;
 }
@@ -146,14 +145,6 @@
     border-radius: 4px;
 }
 
-.profile-card-right::-webkit-scrollbar-thumb:hover {
-    background: #94a3b8;
-}
-
-.edit-header {
-    margin-bottom: 2rem;
-}
-
 .edit-header h2 {
     font-size: 1.8rem;
     color: var(--slate-900);
@@ -161,7 +152,6 @@
     font-weight: 800;
 }
 
-/* Form Layout */
 .form-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -188,19 +178,13 @@
     border-radius: 6px;
     font-size: 0.95rem;
     color: var(--slate-900);
-    transition: border-color 0.2s;
     outline: none;
-}
-
-.form-input:focus {
-    border-color: var(--primary-500);
 }
 
 .form-input.read-only {
     background-color: var(--slate-100);
     color: var(--slate-500);
     cursor: not-allowed;
-    border-color: var(--slate-100);
 }
 
 .section-title {
@@ -210,65 +194,27 @@
     margin-bottom: 1.5rem;
 }
 
-.social-input-group {
-    position: relative;
-}
-
-.social-icon {
-    position: absolute;
-    left: 1rem;
-    top: 50%;
-    transform: translateY(-50%);
-    font-size: 1.1rem;
-    color: var(--slate-400);
-}
-
-.social-input {
-    padding-left: 3rem;
-}
-
 .update-btn {
-    background: #0f172a;
+    background: #ea580c;
     color: white;
     font-weight: 600;
     padding: 1rem 2.5rem;
     border-radius: 4px;
     border: none;
     cursor: pointer;
-    font-size: 1rem;
     transition: background 0.2s;
 }
 
 .update-btn:hover {
-    background: #1e293b;
+    background: #c2410c;
 }
 
-/* ================= MOBILE RESPONSIVE ================= */
 @media (max-width: 1024px) {
-    .doctor-profile-container {
+    .admin-profile-container {
         grid-template-columns: 1fr;
-        padding: 1.5rem;
-    }
-
-    .profile-card-left {
-        max-width: 400px;
-        margin: 0 auto;
-        width: 100%;
     }
 }
 
-@media (max-width: 768px) {
-    .form-grid {
-        grid-template-columns: 1fr;
-        gap: 1.5rem;
-    }
-
-    .profile-card-right {
-        padding: 1.5rem;
-    }
-}
-
-/* View Mode Styling */
 .view-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -296,25 +242,8 @@
     border-bottom: 1px solid var(--slate-100);
 }
 
-.social-view {
-    margin-bottom: 2rem;
-    padding-top: 1rem;
-    border-top: 1px dashed var(--slate-200);
-}
-
-.social-links {
-    display: flex;
-    gap: 1.5rem;
-    margin-top: 0.5rem;
-    color: var(--slate-600);
-}
-
-/* ==========================================================================
-   DOCTOR ID CARD (CITYCARE STYLE - PORTRAIT)
-   ========================================================================== */
-
-/* Overlay */
-.doc-card-overlay {
+/* ================= ADMIN ID CARD STYLES ================= */
+.adm-card-overlay {
     position: fixed;
     top: 0;
     left: 0;
@@ -328,7 +257,7 @@
     z-index: 10000;
 }
 
-.doc-card-modal {
+.adm-card-modal {
     position: relative;
     display: flex;
     flex-direction: column;
@@ -336,12 +265,12 @@
     gap: 20px;
 }
 
-.doc-cards-container {
+.adm-cards-container {
     display: flex;
     gap: 40px;
 }
 
-.doc-card-wrapper {
+.adm-card-wrapper {
     position: relative;
     width: 350px;
     height: 550px;
@@ -352,18 +281,17 @@
     font-family: 'Roboto', sans-serif;
 }
 
-/* Print Handling */
 @media print {
     body * {
         visibility: hidden;
     }
 
-    .doc-card-overlay,
-    .doc-card-overlay * {
+    .adm-card-overlay,
+    .adm-card-overlay * {
         visibility: visible;
     }
 
-    .doc-card-overlay {
+    .adm-card-overlay {
         background: white;
         position: absolute;
         left: 0;
@@ -371,23 +299,9 @@
         -webkit-print-color-adjust: exact;
         print-color-adjust: exact;
     }
-
-    .doc-card-modal {
-        flex-direction: row;
-        gap: 0;
-    }
-
-    .doc-cards-container {
-        gap: 20px;
-    }
-
-    .doc-card-wrapper {
-        box-shadow: none;
-        border: 1px solid #ddd;
-    }
 }
 
-.doc-card {
+.adm-card {
     width: 100%;
     height: 100%;
     position: relative;
@@ -396,7 +310,7 @@
     flex-direction: column;
 }
 
-.doc-header-shape {
+.adm-header-shape {
     position: absolute;
     top: 0;
     left: 0;
@@ -407,20 +321,20 @@
     z-index: 1;
 }
 
-.doc-header-shape::after {
+.adm-header-shape::after {
     content: '';
     position: absolute;
     bottom: -20px;
     left: 0;
     width: 100%;
     height: 60px;
-    background: #bf2a2f;
+    background: #ea580c;
     opacity: 0.9;
     clip-path: ellipse(100% 100% at 80% 100%);
     z-index: -1;
 }
 
-.doc-card-header {
+.adm-card-header {
     position: absolute;
     top: 25px;
     left: 25px;
@@ -428,28 +342,27 @@
     color: white;
 }
 
-.doc-logo-stack {
+.adm-logo-stack {
     display: flex;
     align-items: center;
     gap: 10px;
 }
 
-.doc-logo-img {
+.adm-logo-img {
     height: 50px;
     width: auto;
     filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
 }
 
-.doc-logo-text h3 {
+.adm-logo-text h3 {
     font-size: 0.8rem;
     font-weight: 900;
     text-transform: uppercase;
-    line-height: 1.2;
     margin: 0;
     letter-spacing: 1px;
 }
 
-.doc-photo-section {
+.adm-photo-section {
     position: relative;
     margin-top: 100px;
     display: flex;
@@ -457,7 +370,7 @@
     z-index: 5;
 }
 
-.doc-photo-circle {
+.adm-photo-circle {
     width: 160px;
     height: 160px;
     border-radius: 50%;
@@ -467,14 +380,20 @@
     background: #ddd;
 }
 
-.doc-info-main {
+.adm-photo-circle img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.adm-info-main {
     text-align: center;
     margin-top: 20px;
     margin-bottom: 25px;
     z-index: 10;
 }
 
-.doc-info-name {
+.adm-info-name {
     font-family: 'Playfair Display', serif;
     font-size: 1.6rem;
     font-weight: 800;
@@ -482,9 +401,9 @@
     margin: 0 0 10px 0;
 }
 
-.doc-info-role {
+.adm-info-role {
     display: inline-block;
-    background: #bf2a2f;
+    background: #ea580c;
     color: white;
     padding: 6px 25px;
     border-radius: 20px;
@@ -494,18 +413,30 @@
     letter-spacing: 1px;
 }
 
-.doc-info-grid {
+.adm-info-grid {
     padding: 0 30px;
 }
 
-.doc-detail-row {
+.adm-detail-row {
     display: flex;
     justify-content: space-between;
     padding: 8px 0;
-    border-bottom: 1px solid #bf2a2f;
+    border-bottom: 1px solid #ea580c;
 }
 
-.doc-footer-shape {
+.adm-detail-label {
+    font-weight: 800;
+    color: #1a2c4e;
+    font-size: 0.85rem;
+}
+
+.adm-detail-value {
+    font-weight: 600;
+    color: #444;
+    font-size: 0.85rem;
+}
+
+.adm-footer-shape {
     position: absolute;
     bottom: 0;
     left: 0;
@@ -515,78 +446,7 @@
     clip-path: ellipse(80% 100% at 50% 100%);
 }
 
-.doc-back-header {
-    background: #1a2c4e;
-    width: 100%;
-    height: 120px;
-    position: absolute;
-    top: 0;
-    zoom: 1;
-    clip-path: ellipse(150% 100% at 50% 0%);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.doc-back-content {
-    margin-top: 140px;
-    padding: 0 30px;
-    text-align: center;
-}
-
-.doc-emergency-bar {
-    font-weight: 900;
-    color: #bf2a2f;
-    font-size: 1.2rem;
-    text-transform: uppercase;
-    margin-bottom: 10px;
-}
-
-.doc-hospital-grid {
-    margin-top: 20px;
-    text-align: left;
-    padding: 10px 0;
-}
-
-.doc-h-row {
-    display: flex;
-    justify-content: space-between;
-    font-size: 0.75rem;
-    margin-bottom: 6px;
-}
-
-.doc-h-label {
-    font-weight: 800;
-    color: #1a2c4e;
-}
-
-.doc-h-value {
-    color: #555;
-    text-align: right;
-    max-width: 65%;
-    word-break: break-word;
-}
-
-.doc-note-bar {
-    background: #bf2a2f;
-    color: white;
-    font-weight: 800;
-    text-transform: uppercase;
-    padding: 5px;
-    border-radius: 20px;
-    margin: 20px 0 10px 0;
-    font-size: 0.8rem;
-}
-
-.doc-policy-list {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    font-size: 0.75rem;
-    color: #555;
-}
-
-.doc-footer-shape-back {
+.adm-footer-shape-back {
     position: absolute;
     bottom: 0;
     left: 0;
@@ -596,7 +456,7 @@
     clip-path: ellipse(100% 100% at 50% 100%);
 }
 
-.doc-card-actions {
+.adm-card-actions {
     display: flex;
     gap: 15px;
     position: fixed;
@@ -605,8 +465,8 @@
     z-index: 10001;
 }
 
-.doc-action-btn,
-.doc-close-btn {
+.adm-action-btn,
+.adm-close-btn {
     padding: 10px 20px;
     border: none;
     border-radius: 8px;
@@ -615,14 +475,16 @@
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 }
 
-.doc-action-btn {
+.adm-action-btn {
     background: white;
     color: #1a2c4e;
 }
 
-.doc-close-btn {
-    background: #bf2a2f;
+.adm-close-btn {
+    background: #ea580c;
     color: white;
+    width: 40px;
+    height: 40px;
     display: flex;
     align-items: center;
     justify-content: center;

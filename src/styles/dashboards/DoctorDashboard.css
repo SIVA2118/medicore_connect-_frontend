@@ -174,8 +174,66 @@
     color: var(--primary-700);
 }
 
+/* ================= RESPONSIVE ADJUSTMENTS ================= */
 @media (max-width: 1024px) {
     .dashboard-sections {
         grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 768px) {
+    .doctor-dashboard-container {
+        padding: 1.5rem 1rem;
+    }
+
+    .welcome-banner {
+        padding: 2rem 1.5rem;
+        margin-bottom: 2rem;
+    }
+
+    .welcome-banner h1 {
+        font-size: 1.75rem;
+    }
+
+    .welcome-banner p {
+        font-size: 1rem;
+    }
+
+    .stats-grid {
+        grid-template-columns: 1fr;
+        /* Stack cards on mobile */
+        gap: 1rem;
+    }
+
+    .stat-card {
+        padding: 1.5rem;
+    }
+
+    .stat-info p {
+        font-size: 1.75rem;
+    }
+
+    .section-card {
+        padding: 1.5rem;
+    }
+
+    .quick-links-grid {
+        grid-template-columns: repeat(2, 1fr);
+        /* 2 columns on mobile */
+        gap: 1rem;
+    }
+
+    .quick-link-btn {
+        padding: 1rem;
+    }
+
+    .quick-link-btn span {
+        font-size: 1.75rem;
+    }
+
+    .todays-visits li {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.5rem;
     }
 }

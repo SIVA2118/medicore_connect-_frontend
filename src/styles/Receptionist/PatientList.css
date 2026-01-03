@@ -1,9 +1,9 @@
+/* ================= PATIENT LIST CONTAINER ================= */
 .patient-list-container {
     padding: 2rem;
     max-width: 1400px;
-    margin: 0;
+    margin: 0 auto;
 }
-
 
 .patient-list-header {
     display: flex;
@@ -61,13 +61,11 @@
 
 .column-opd {
     background: #eff6ff;
-    /* Light Blue tint */
     border-color: #dbeafe;
 }
 
 .column-ipd {
     background: #fdf2f8;
-    /* Light Pink tint */
     border-color: #fce7f3;
 }
 
@@ -83,11 +81,9 @@
     align-items: center;
 }
 
-/* Updated List to Grid logic */
 .patients-list {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    /* Force 2 columns */
     gap: 1rem;
 }
 
@@ -99,19 +95,11 @@
     padding: 2rem 0;
 }
 
-.patients-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    gap: 1.5rem;
-}
-
 /* ================= MODERN CARD DESIGN (COMPACT) ================= */
 .patient-card-modern {
     background: white;
     border-radius: 16px;
-    /* Slightly tighter radius */
     padding: 1rem;
-    /* Reduced padding */
     box-shadow: 0 2px 4px -1px rgba(0, 0, 0, 0.05);
     border: 1px solid var(--slate-100);
     transition: all 0.2s;
@@ -128,7 +116,6 @@
     border-color: var(--primary-200);
 }
 
-/* Header Section */
 .modern-card-header {
     text-align: center;
     margin-bottom: 1rem;
@@ -153,7 +140,6 @@
 .modern-avatar-section {
     position: relative;
     width: 60px;
-    /* Reduced size */
     height: 60px;
     margin: 0 auto 0.75rem;
 }
@@ -184,7 +170,6 @@
 
 .modern-patient-name {
     font-size: 1.1rem;
-    /* Reduced font size */
     font-weight: 700;
     color: var(--slate-900);
     margin: 0 0 0.15rem 0;
@@ -199,7 +184,6 @@
     font-weight: 500;
 }
 
-/* Badge Updates */
 .modern-badge {
     padding: 0.25rem 0.6rem;
     border-radius: 50px;
@@ -219,7 +203,6 @@
     color: #be185d;
 }
 
-/* Info Grid */
 .modern-card-body {
     flex: 1;
     margin-bottom: 1rem;
@@ -268,7 +251,6 @@
     font-weight: 600;
 }
 
-/* Footer & Actions */
 .modern-card-footer {
     display: flex;
     justify-content: space-between;
@@ -297,7 +279,6 @@
 
 .modern-btn-primary:hover {
     background: var(--primary-600);
-    transform: translateY(-1px);
 }
 
 .modern-actions-group {
@@ -321,7 +302,6 @@
 
 .modern-icon-btn:hover {
     border-color: var(--slate-300);
-    transform: translateY(-1px);
 }
 
 .modern-icon-btn.edit:hover {
@@ -336,7 +316,7 @@
     border-color: #fecaca;
 }
 
-/* ================= PATIENT MODAL ================= */
+/* ================= PATIENT DETAIL POPUP ================= */
 .patient-modal-overlay {
     position: fixed;
     top: 0;
@@ -388,10 +368,6 @@
     line-height: 1;
 }
 
-.close-btn:hover {
-    color: var(--slate-800);
-}
-
 .modal-header {
     margin-bottom: 2rem;
     padding-bottom: 1rem;
@@ -405,6 +381,30 @@
     font-size: 2rem;
     color: var(--slate-900);
     margin: 0;
+}
+
+.modal-avatar {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 4px solid white;
+    box-shadow: var(--shadow-md);
+}
+
+.modal-avatar-placeholder {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background: var(--primary-100);
+    color: var(--primary-700);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 2.5rem;
+    border: 4px solid white;
+    box-shadow: var(--shadow-md);
 }
 
 .modal-body {
@@ -439,181 +439,188 @@
     font-weight: 600;
 }
 
-/* ================= AVATARS ================= */
-.patient-info-header {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-}
+/* ================= ID CARD MODAL (FIXED SCALABLE DESIGN) ================= */
 
-.list-avatar {
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    object-fit: cover;
-    border: 2px solid var(--primary-100);
-}
-
-.list-avatar-placeholder {
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    background: var(--primary-100);
-    color: var(--primary-700);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-weight: 700;
-    font-size: 1.2rem;
-}
-
-.modal-avatar {
-    width: 100px;
-    height: 100px;
-    border-radius: 50%;
-    object-fit: cover;
-    border: 4px solid white;
-    box-shadow: var(--shadow-md);
-}
-
-.modal-avatar-placeholder {
-    width: 100px;
-    height: 100px;
-    border-radius: 50%;
-    background: var(--primary-100);
-    color: var(--primary-700);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-weight: 700;
-    font-size: 2.5rem;
-    border: 4px solid white;
-    box-shadow: var(--shadow-md);
-}
-
-/* ================= ID CARD MODAL (VACCINATION STYLE - COMPACT) ================= */
-.id-card-modal.landscape {
-    background: white;
-    width: 660px;
-    /* Fixed width for standard card feel */
-    height: auto;
-    border-radius: 20px;
-    overflow: visible;
-    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.3);
-    position: relative;
-    animation: slideUp 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    display: flex;
-    flex-direction: column;
-    padding: 2.5rem;
-    font-family: 'Inter', sans-serif;
-    border: 1px solid var(--slate-200);
-}
-
+/* Modal Content Overlay */
 .modal-overlay {
     backdrop-filter: blur(8px);
     display: flex;
     justify-content: center;
-    align-items: center;
-    padding: 1rem;
+    align-items: flex-start;
+    /* Correct alignment for scaling */
+    padding: 2rem;
     z-index: 9999;
-    /* Ensure it stays on top */
+    overflow-y: auto;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+/* Wrapper handles positioning and scaled height */
+.id-card-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    margin-top: 2rem;
+    /* Add spacing from top */
+    padding-bottom: 2rem;
+}
+
+/* The Card itself - FIXED DIMENSIONS for pixel perfect design */
+.id-card-modal.landscape {
+    background: white;
+    width: 1000px;
+    /* FIXED WIDTH - Optimised for reference design */
+    min-width: 1000px;
+    height: auto;
+    min-height: 550px;
+    border-radius: 28px;
+    box-shadow: 0 40px 80px rgba(0, 0, 0, 0.2);
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    padding: 5rem;
+    font-family: 'Inter', sans-serif;
+    border: 1px solid #e2e8f0;
+    box-sizing: border-box;
+    transform-origin: top center;
+    /* Scale from top center */
+    margin-bottom: 0;
+    animation: slideUp 0.3s ease-out;
+}
+
+/* SCALING LOGIC FOR RESPONSIVENESS */
+@media (max-width: 1024px) {
+    .id-card-modal.landscape {
+        transform: scale(0.7);
+        /* Scale for tablets/laptops */
+        margin-bottom: -160px;
+    }
+}
+
+@media (max-width: 768px) {
+    .id-card-modal.landscape {
+        transform: scale(0.5);
+        /* Scale for mobile */
+        margin-bottom: -280px;
+    }
+
+    .id-card-wrapper {
+        padding: 0;
+        margin-top: 1rem;
+        overflow-x: hidden;
+    }
+
+    .modal-overlay {
+        padding: 0.5rem;
+        align-items: flex-start;
+    }
+}
+
+@media (max-width: 480px) {
+    .id-card-modal.landscape {
+        transform: scale(0.38);
+        /* Tiny scale for small phones */
+        margin-bottom: -350px;
+    }
 }
 
 /* Header */
 .vax-card-header {
     display: flex;
     justify-content: space-between;
-    align-items: center;
-    /* Center align items */
-    margin-bottom: 2rem;
-    border: none;
-    /* Removed border */
-    padding-bottom: 0;
+    align-items: flex-start;
+    margin-bottom: 2.5rem;
 }
 
 .vax-title h4 {
-    font-size: 1.6rem;
+    font-size: 2rem;
     font-weight: 900;
-    color: var(--slate-900);
-    letter-spacing: -0.02em;
+    color: #111827;
+    /* Near black */
+    letter-spacing: -0.01em;
     line-height: 1;
-    margin-bottom: 0.35rem;
+    margin: 0 0 0.5rem 0;
     text-transform: uppercase;
 }
 
 .vax-title span {
-    font-size: 0.75rem;
-    color: var(--slate-400);
+    font-size: 0.85rem;
+    color: #9ca3af;
+    /* Light grey */
     letter-spacing: 0.15em;
     text-transform: uppercase;
     font-weight: 700;
+    display: block;
 }
 
 .vax-status-badge {
-    background: #eff6ff;
-    padding: 0.4rem 0.8rem;
+    background: #f0fdf4;
+    /* Light green bg */
+    padding: 0.5rem 1rem;
     border-radius: 12px;
     text-align: right;
-    min-width: 120px;
-    border: none;
 }
 
 .status-label {
-    font-size: 0.6rem;
+    font-size: 0.65rem;
     font-weight: 800;
-    letter-spacing: 0.1em;
-    color: var(--slate-400);
+    letter-spacing: 0.15em;
+    color: #9ca3af;
     text-transform: uppercase;
-    margin-bottom: 0.1rem;
+    margin-bottom: 0.2rem;
 }
 
 .status-value {
-    color: var(--primary-600);
+    color: #059669;
+    /* Green text */
     font-weight: 900;
-    font-size: 0.95rem;
+    font-size: 1.1rem;
     display: flex;
     align-items: center;
     justify-content: flex-end;
-    gap: 0.4rem;
+    gap: 0.5rem;
     text-transform: uppercase;
 }
 
 .check-icon {
-    background: var(--primary-500);
+    background: #059669;
     color: white;
-    width: 16px;
-    height: 16px;
+    width: 18px;
+    height: 18px;
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 0.7rem;
+    font-size: 0.75rem;
+    font-weight: bold;
 }
 
 /* Body Layout */
 .vax-card-body {
     display: flex;
-    gap: 2.5rem;
-    flex: 1;
-    margin-bottom: 1.5rem;
+    gap: 3.5rem;
+    margin-bottom: 3rem;
 }
 
-/* Photo */
+/* Photo - Rounded Rectangle per Sakra reference */
 .vax-photo-section {
-    width: 140px;
     flex-shrink: 0;
 }
 
 .vax-photo-frame {
-    width: 140px;
-    height: 160px;
-    /* Slightly taller than wide */
-    background: var(--slate-100);
-    border-radius: 12px;
+    width: 160px;
+    height: 190px;
+    background: #f3f4f6;
+    border-radius: 16px;
+    /* Rounded corners */
     overflow: hidden;
-    border-radius: 12px;
     object-fit: cover;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
 }
 
 .vax-photo-frame img {
@@ -628,8 +635,8 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 3rem;
-    color: var(--slate-400);
+    font-size: 4rem;
+    color: #d1d5db;
     font-weight: 700;
 }
 
@@ -638,14 +645,14 @@
     flex: 1;
     display: flex;
     flex-direction: column;
-    gap: 1.2rem;
+    gap: 2rem;
+    padding-top: 0.5rem;
 }
 
 .vax-row {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 2rem;
-    align-items: flex-start;
+    display: flex;
+    gap: 1.5rem;
+    /* Reduced from 2.5rem */
 }
 
 .vax-field {
@@ -654,41 +661,43 @@
 }
 
 .vax-field.full-width {
-    grid-column: 1 / -1;
+    width: 100%;
 }
 
 .vax-field label {
-    font-size: 0.7rem;
-    font-weight: 800;
-    color: var(--slate-400);
+    font-size: 0.65rem;
+    /* Reduced from 0.75rem */
+    font-weight: 900;
+    color: #d1d5db;
     text-transform: uppercase;
     letter-spacing: 0.05em;
-    margin-bottom: 0.25rem;
+    margin-bottom: 0.3rem;
 }
 
 .vax-field p {
-    font-size: 1.05rem;
-    font-weight: 700;
-    color: var(--slate-900);
-    border-bottom: 2px solid var(--slate-100);
-    padding-bottom: 0.3rem;
+    font-size: 1rem;
+    /* Reduced from 1.25rem */
+    font-weight: 800;
+    color: #111827;
+    padding-bottom: 0.2rem;
     line-height: 1.2;
+    border-bottom: 2px solid #f3f4f6;
+    min-width: 120px;
 }
 
-/* Footer layout optimized for compact look */
+/* Footer layout */
 .vax-card-footer {
     display: flex;
     justify-content: space-between;
     align-items: flex-end;
     margin-top: auto;
-    border-top: 1px dashed var(--slate-200);
-    /* Separator */
-    padding-top: 1.5rem;
+    padding-top: 1rem;
+    border-top: 1px dashed #f3f4f6;
 }
 
+/* QR Code */
 .vax-qr-section {
     display: flex;
-    flex-direction: row;
     align-items: center;
     gap: 1rem;
 }
@@ -696,59 +705,65 @@
 .qr-label {
     writing-mode: vertical-rl;
     transform: rotate(180deg);
-    font-size: 0.6rem;
-    letter-spacing: 0.2em;
-    color: var(--slate-400);
+    font-size: 0.55rem;
+    /* Reduced from 0.65rem */
+    letter-spacing: 0.25em;
+    color: #d1d5db;
     font-weight: 800;
     text-transform: uppercase;
     white-space: nowrap;
-    opacity: 0.8;
 }
 
 .qr-code-box {
-    padding: 0;
-    border: none;
-    /* Clean look */
+    width: 120px;
+    /* Reduced from 140px */
+    height: 120px;
 }
 
+/* Signature Section */
 .vax-signature-section {
     display: flex;
-    gap: 2rem;
-    align-items: center;
-}
-
-.signature-line {
-    font-style: italic;
-    font-size: 1.1rem;
-    color: var(--slate-400);
-    /* More subtle signature */
-    text-transform: uppercase;
-    font-weight: 600;
-    letter-spacing: 0.05em;
-    border: none;
-    border-top: 2px solid var(--slate-200);
-    /* Line above text for signature area */
-    padding-top: 0.5rem;
+    gap: 3rem;
+    align-items: flex-end;
 }
 
 .vax-field label.footer-label {
-    font-size: 0.65rem;
-    color: var(--slate-400);
-    text-align: right;
-    display: block;
+    text-align: left;
+    color: #d1d5db;
+    font-weight: 900;
+    font-size: 0.6rem;
+    /* Reduced from 0.7rem */
 }
 
-/* ================= ACTION BUTTONS FOR ID CARD ================= */
-.id-card-wrapper {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 1.5rem;
+.vax-field .footer-value {
+    font-size: 0.9rem;
+    /* Reduced from 1.1rem */
+    font-weight: 800;
+    border-bottom: 2px solid #f3f4f6;
 }
 
+.signature-line {
+    font-family: 'Brush Script MT', cursive;
+    font-size: 1.2rem;
+    /* Reduced from 1.5rem */
+    color: #9ca3af;
+    font-weight: 500;
+    border-bottom: none;
+    /* No underline for signature in Sakra ref */
+    padding-bottom: 0.2rem;
+    min-width: 150px;
+    text-align: left;
+    /* Sakra signature aligns with label */
+    font-style: italic;
+}
+
+/* Action Buttons - Keep unrelated to scaling */
 .id-card-actions {
+    margin-top: 1rem;
     display: flex;
     gap: 1rem;
+    z-index: 100;
+    /* Ensure buttons are clickable above scaled element */
 }
 
 .btn-print {
@@ -789,81 +804,66 @@
     color: var(--slate-900);
 }
 
-/* ================= PRINT STYLES ================= */
-/* ================= PRINT STYLES ================= */
 @media print {
     @page {
-        size: auto;
         margin: 0;
+        size: landscape;
     }
 
-    /* Reset body and html for full page centering */
     html,
     body {
-        height: 100%;
-        width: 100%;
-        margin: 0 !important;
-        padding: 0 !important;
+        height: 100vh;
+        /* Force viewport height */
+        width: 100vw;
+        margin: 0;
+        padding: 0;
+        background: white;
         overflow: hidden !important;
+        /* Strictly prevent scroll/extra pages */
     }
 
-    /* Hide everything primarily */
     body * {
         visibility: hidden;
-        height: 0;
-        /* Collapse space */
     }
 
-    /* Re-enable visibility for the specific modal path */
     .modal-overlay,
     .modal-overlay * {
         visibility: visible;
-        height: auto;
-        /* Restore height */
     }
 
-    /* The overlay becomes the full page container */
     .modal-overlay {
-        position: fixed !important;
-        top: 0;
+        position: fixed;
+        /* Fixed is key for single page overlay printing */
         left: 0;
+        top: 0;
         width: 100vw;
         height: 100vh;
-        display: flex !important;
-        justify-content: center;
-        align-items: center;
-        background: white !important;
-        z-index: 9999;
-        margin: 0 !important;
-        padding: 0 !important;
-    }
-
-    /* Wrapper for visual centering */
-    .id-card-wrapper {
-        position: static;
-        /* Let flexbox handle it */
+        background: white;
         display: flex;
         justify-content: center;
         align-items: center;
-        width: 100%;
-        height: 100%;
+        z-index: 9999;
     }
 
-    /* The card itself */
     .id-card-modal.landscape {
-        visibility: visible;
-        position: relative !important;
-        transform: scale(0.9);
-        /* Slight scale down to ensure margins are safe */
-        box-shadow: none !important;
-        border: 1px solid #ddd !important;
-        margin: 0 !important;
-        flex-shrink: 0;
+        box-shadow: none;
+        border: 1px solid #ddd;
+        transform: scale(1) !important;
+        margin: 0;
+        padding: 0;
+        print-color-adjust: exact;
+        -webkit-print-color-adjust: exact;
+        position: relative;
+        top: auto;
+        left: auto;
+        transform: scale(0.85) !important;
+        transform-origin: center center !important;
     }
 
-    /* Hide actions specifically again just in case */
-    .id-card-actions {
+    /* Force hide extra elements */
+    .id-card-actions,
+    .patients-header,
+    .patients-split-container {
         display: none !important;
-        visibility: hidden !important;
     }
 }
