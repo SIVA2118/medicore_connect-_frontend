@@ -1,0 +1,255 @@
+.bill-modal {
+    max-width: 850px;
+    width: 95%;
+    background: white;
+    padding: 0;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    border: 1px solid #000;
+}
+
+.modal-header.no-print {
+    padding: 0.75rem 1rem;
+    border-bottom: 1px solid #ccc;
+    background: #f1f1f1;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.bill-print-area {
+    padding: 2rem;
+    font-family: 'Arial', sans-serif;
+    color: #000;
+    overflow-y: auto;
+    max-height: 85vh;
+}
+
+/* Brand Header */
+.brand-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid #333;
+}
+
+.logo-section {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.logo-placeholder {
+    font-size: 3rem;
+    line-height: 1;
+}
+
+.hospital-title h1 {
+    font-size: 1.8rem;
+    font-weight: 800;
+    color: #1e3a8a;
+    /* Dark Blue */
+    margin: 0;
+    line-height: 1.2;
+}
+
+.iso-tag {
+    background: #1e3a8a;
+    color: white;
+    font-size: 0.8rem;
+    padding: 0.1rem 0.5rem;
+    display: inline-block;
+    border-radius: 2px;
+    margin-top: 0.25rem;
+}
+
+.hospital-contact {
+    text-align: right;
+    font-size: 0.85rem;
+    line-height: 1.4;
+    color: #333;
+}
+
+.hospital-contact p {
+    margin: 0;
+}
+
+/* Receipt Strip */
+.receipt-strip {
+    background: #e8e8e8;
+    /* Light Grey/Beige */
+    text-align: center;
+    font-weight: 700;
+    font-size: 1rem;
+    padding: 0.25rem 0;
+    border-top: 1px solid #333;
+    border-bottom: 1px solid #333;
+    margin-bottom: 1rem;
+    text-transform: uppercase;
+}
+
+/* Meta Info Grid */
+.meta-info-grid {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+    font-size: 0.9rem;
+}
+
+.meta-left,
+.meta-right {
+    width: 48%;
+}
+
+.row {
+    display: flex;
+    margin-bottom: 0.2rem;
+    align-items: baseline;
+}
+
+.row .label {
+    width: 110px;
+    font-weight: 600;
+    color: #333;
+    flex-shrink: 0;
+}
+
+.row .val {
+    color: #000;
+    flex-grow: 1;
+}
+
+.row .val.bold {
+    font-weight: 700;
+}
+
+/* Receipt Table */
+.table-container {
+    margin-bottom: 0;
+}
+
+.receipt-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.9rem;
+    border: 1px solid #000;
+}
+
+.receipt-table th {
+    background: #e8e8e8;
+    border: 1px solid #000;
+    padding: 0.4rem;
+    text-align: left;
+    font-weight: 700;
+}
+
+.receipt-table td {
+    border-left: 1px solid #000;
+    border-right: 1px solid #000;
+    /* No horizontal borders inside body usually for this style, but simpler to add all */
+    border-bottom: 1px solid #ccc;
+    padding: 0.4rem;
+    vertical-align: top;
+}
+
+.receipt-table td.bold {
+    font-weight: 600;
+}
+
+/* Footer Summary */
+.footer-summary {
+    border: 1px solid #000;
+    border-top: none;
+    /* Connects to table */
+    font-size: 0.9rem;
+}
+
+.summary-row {
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid #000;
+}
+
+.summary-row:last-child {
+    border-bottom: none;
+}
+
+.summary-row .label {
+    padding: 0.3rem 0.5rem;
+    text-align: right;
+    flex-grow: 1;
+    border-right: 1px solid #000;
+    font-weight: 600;
+}
+
+.summary-row .label.text-left {
+    text-align: left;
+    /* For Amount in Words */
+}
+
+.summary-row .amount {
+    width: 120px;
+    padding: 0.3rem 0.5rem;
+    text-align: right;
+    font-weight: 700;
+    flex-shrink: 0;
+}
+
+/* Auth Sign */
+.auth-sign {
+    margin-top: 3rem;
+    text-align: right;
+    font-size: 0.9rem;
+    padding-right: 1rem;
+    font-weight: 600;
+}
+
+
+/* Print Styles */
+@media print {
+    body * {
+        visibility: hidden;
+    }
+
+    .modal-overlay,
+    .modal-content,
+    .bill-print-area,
+    .bill-print-area * {
+        visibility: visible;
+    }
+
+    .modal-overlay {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background: white;
+        z-index: 9999;
+    }
+
+    .bill-modal {
+        width: 100%;
+        max-width: 100%;
+        position: absolute;
+        left: 0;
+        top: 0;
+        box-shadow: none;
+        border: none;
+    }
+
+    .bill-print-area {
+        padding: 0.5rem;
+        /* Small padding for print */
+        max-height: none;
+        overflow: visible;
+    }
+
+    .no-print {
+        display: none !important;
+    }
+}
